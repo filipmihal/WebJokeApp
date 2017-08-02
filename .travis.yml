@@ -1,8 +1,11 @@
 language: python
 python:
-  - "3.6.1"
-# command to install dependencies
-install: "pip install -r requirements.txt"
-# command to run tests
-script: 
-  - python flask_tests.py
+- 3.6.1
+install: pip install -r requirements.txt
+script:
+- python flask_tests.py
+deploy:
+  provider: heroku
+  api_key:
+    secure: DLriF7W2R+HZ7nUgNNG0DlANZjPfdGKyEpQh8ADZar7rxUH4iUZjeorDvDvmcQWFp/g2PoCo7UsmEjeITIgIyDHCYqTKYu58Hj8+K4vFh5AsgVzOg6TvveqcLRDYLwmcK4P3Qqn72swpZFEUZ/6p/bJZZhVKOxQVeWYJMukP0cbwiteZuYDGcE8YAcciteBYwNC/n7z/zNruA2kqSttLPv4nyxWfXElDjzmQLGq2mCNynWlyqBlKBL+ILqZsQSOCk+oxLmu8IR5EgYH3wLGc1QDRWqBfkzXbcfYpuOxrILFhb+rhs0tJLkGi8fgW5vkzfLTZugpXBTgqTgfG4YmoZr9eSfixtgdgRWMB5WhEObCfU8+9wkECNsD9Ltds4roDlt0H2cuxmNsav25HAmpw808srGxng9K0dIDZeXcC8VyBo76ujMa+2RTm2nomT/bPuzhiau3UT0A7kdjvYhdmv795cCksEApSAc/4VtQpT2ZpWaYuYROKZeujhywbLPFT7PcuZOGGbTXBjbR69i1fq49RXCz//ajYB4wobZv7CDIvR4t1rprlsxGVHPPhz44UMM9SbFYFsdHcmKci5I9tPKuyKxncDrNotSU+j0TfJmxzkE9FvPxsRpYLDa008x6tTIW5Vjb4H6egps/HyRSWKxGNWcKIaoxIh2Ed28rXCIk=
+  app: vtipystarejmetere
