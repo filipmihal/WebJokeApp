@@ -6,8 +6,7 @@ script:
 - python flask_tests.py
 deploy:
   provider: heroku
-  api_key:
-    secure: Cq2XIVYUNA/pss6x5zuK44rd20unvP46ViQ++Ox3TtjdDvbBHeuKph00cxUINkiFYSh8NBKn17KjTlJHLNfXdqAc6JhiOmnGAuQODoljhwoSa+0wBAIzP0F8yEOQLDbJHTYihC+c67Gp7JUf8gPl4WVrUyJGVxHGAuIZ4ZrF6SwmD3QI62btp6vX+1B83apu3tBE1bpczUXNaQPzliQ2Qqei3ueBURE6Ps7OvyYi7IgA4R8ALtd9bR/6w3fvkhbKWEkhcDctykt3sA17PiqU6xtjfeYI1gcR5JZZIVbliASwIhpdXyt5386kfSnQmN9X2/y2T6ui02WTPOHgDd3gZCcCW7X9ev0Xldo7bSa49KEfclT3UqmilGQ+ompSjNx2l0lOH6QbuDUDVitFYPwUTErV5NP2/Tv2VpJknthC8kP056yFiRdAMJeaHY1QDMSkdoZV3idZiScPRho/SCMNuEFTMiiAa1kdfNMXcmUUt3+wO0p3+pbD7uYa6/j87R221RBddrkCgTWgJh2PYwFgUKiqPYnNv1rPE4OEtQQtg5vAngShu8Uy9QnGqxRXGYwf4pcwCjb+H9AmnEVE5qhM0ie2SOCEB+3sl7pfDBkWgG/Z281cVixiSNvBhUjd8TuYmP2LsCtJtkr+LHg8INGKDVFhBQkNm/TNheVjZ2bP69g=
+  api_key: 0ab4c165-fba0-44ca-af33-66d6144c2cba
   app: vtipystarejmatere
   on:
     repo: filipmihal/WebJokeApp
