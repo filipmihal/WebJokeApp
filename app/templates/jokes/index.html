@@ -1,0 +1,21 @@
+<!-- extend base layout -->
+{% extends "base.html" %} {% block content %} {%for joke in jokes%}
+<div class="col-md-6 col-sm-12">
+  <div class="card card-nav-tabs">
+
+    <div class="content">
+      <div class="tab-content">
+        <div class="tab-pane active" id="profile">
+          {%for line in joke.html_joke()%}
+          <p>{{line}}</p>
+          {%endfor%}
+          <a href="{{ url_for('categories.category', name=joke.category.name) }}">{{joke.category.name}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endfor%}
+<div class="clear-fix"></div>
+<div class="text-center"> {{ pagination.links }}</div>
+{% endblock %}
