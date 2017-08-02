@@ -5,6 +5,7 @@
 *.egg-info
 dist
 build
+tmp
 eggs
 parts
 bin
@@ -12,7 +13,9 @@ var
 sdist
 develop-eggs
 .installed.cfg
-
+db_repostirory/__pycache__
+app/views/__pycache__
+app/tmplates.__pycache__
 # Installer logs
 pip-log.txt
 
