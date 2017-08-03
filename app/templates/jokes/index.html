@@ -10,6 +10,10 @@
           <p>{{line}}</p>
           {%endfor%}
           <a href="{{ url_for('categories.category', name=joke.category.name) }}">{{joke.category.name}}</a>
+           <button class="btn btn-success joke-like"><i class="fa fa-thumbs-o-up"></i></button>
+          <button class="btn btn-danger joke-dislike"><i class="fa fa-thumbs-o-down"></i></button>
+          <span class="sharing-area"><button class="btn btn-facebook facebook-share"><i class="fa fa-facebook"></i></button></span>
+          <button class="btn btn-info play-voice-api"><i class="fa fa-volume-up"></i></button>
         </div>
       </div>
     </div>
