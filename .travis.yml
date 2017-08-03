@@ -4,7 +4,7 @@ python:
 install: pip install -r requirements.txt
 
 before_script:
-  - gunicorn app:app 127.0.0.1:8000 
+  - gunicorn --daemon app:app 127.0.0.1:8000 
 
 script:
   - python flask_tests.py
