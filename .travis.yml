@@ -7,6 +7,7 @@ before_script:
   - nohup waitress-serve --listen=127.0.0.1:5000 app:app &
 script:
 - python flask_tests.py
+- python ui_test.py
 deploy:
   provider: heroku
   api_key:
