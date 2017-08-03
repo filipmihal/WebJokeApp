@@ -7,7 +7,6 @@ from random import randint
 from flask import url_for
 from app import app
 import os
-from config import basedir
 class BasicTests(unittest.TestCase):
  
     ############################
