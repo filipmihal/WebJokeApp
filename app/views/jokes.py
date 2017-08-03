@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, Blueprint
 from flask_paginate import Pagination, get_page_parameter, get_page_args
-from ..models import Joke
+from app.models import Joke
 # from .models import Category
 
 mod = Blueprint('jokes', __name__)

@@ -1,7 +1,10 @@
 language: python
 python:
 - 3.6.1
+cache: pip
 install: pip install -r requirements.txt
+before_script:
+  - nohup waitress-serve --listen=127.0.0.1:5000 app:app &
 script:
 - python flask_tests.py
 deploy:
