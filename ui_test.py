@@ -7,6 +7,7 @@ from random import randint
 from flask import url_for
 from app import app
 import os
+from config import per_page
 class BasicTests(unittest.TestCase):
  
     ############################
@@ -20,7 +21,7 @@ class BasicTests(unittest.TestCase):
         app.config['TESTING'] = True
         app.config['WTF_CSRF_ENABLED'] = False
         app.config['DEBUG'] = False
-        app.config['SERVER_NAME'] = '127.0.0.1:5000'
+        app.config['SERVER_NAME'] = "http://localhost:5000"
         self.app = app.test_client()
  
     # executed after each test
@@ -31,7 +32,7 @@ class BasicTests(unittest.TestCase):
 #### tests ####
 ###############
     def test_category_page(self):
-        self.driver.get("http://localhost:5000/kategorie/")
+        self.driver.get(app.config['SERVER_NAME'] + "/kategorie/")
 
         #testing the title
         title = self.driver.find_element_by_xpath('/html/body/div/div[1]/div/div/div/h1')
@@ -45,17 +46,16 @@ class BasicTests(unittest.TestCase):
     def test_category_paginator(self):
         category = Category.query.order_by(func.random()).first()
         total_jokes = category.jokes.count()
-        per_page = 10
         pages = math.ceil(total_jokes / per_page)
         remainder = total_jokes % per_page
         if remainder == 0:
-            remainder = 10
+            remainder = per_page
 
         with app.app_context():
             category_url = url_for('categories.category', name=category.name, _external=False)
 
         current_page_num = str(randint(1,pages))
-        url = "http://localhost:5000" + category_url + "?page=" + current_page_num
+        url = app.config['SERVER_NAME'] + category_url + "page/" + current_page_num
 
         self.driver.get(url)
         jokes = self.driver.find_elements_by_class_name('joke')
