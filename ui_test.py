@@ -48,6 +48,6 @@ class BasicTests(unittest.TestCase):
         if current_page_num == pages:
             assert jokes_num == remainder
         else:
-            assert jokes_num == int(PER_PAGE)
+            assert jokes_num == PER_PAGE
 if __name__ == "__main__":
     unittest.main()
