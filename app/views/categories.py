@@ -37,5 +37,5 @@ def category(name, page = 1):
         format_number=True,
     )
     return render_template('categories/category.html',
-                           category=category, jokes = jokes, pagination=pagination)
+                           category=category, jokes = jokes, pagination=pagination, head_name = category.name)
 
