@@ -1,37 +1,33 @@
-from flask import render_template, flash, redirect, url_for, Blueprint
-from flask_paginate import Pagination, get_page_parameter, get_page_args
+""" view for showing all jokes and unique jokes """
+from flask import render_template, redirect, Blueprint
+from flask_paginate import Pagination
 from app.models import Joke
-from config import per_page, pagination_framework
-# from .models import Category
-
-mod = Blueprint('jokes', __name__)
-
-@mod.route('/', defaults={'page': 1})
-@mod.route('/page/<page>')
-@mod.route('/page/<page>/')
+from config import PER_PAGE, PAGINATION_FRAMEWORK
+JOKES_MOD = Blueprint('jokes', __name__)
+@JOKES_MOD.route('/', defaults={'page': 1})
+@JOKES_MOD.route('/page/<page>')
+@JOKES_MOD.route('/page/<page>/')
 def index(page):
+    """index page where all jokes are showed ordered by rank """
     try:
         page = int(page)
     except ValueError:
-        return redirect('kategorie/' + name)
-    
-    jokes = Joke.query.order_by('rank desc').limit(per_page).offset((page - 1) * per_page).all()
+        return redirect('/')
+    jokes = Joke.query.order_by('rank desc').limit(PER_PAGE).offset((page - 1) * PER_PAGE).all()
     total = Joke.query.count()
     pagination = Pagination(page=page,
-        css_framework=pagination_framework,
-        per_page=per_page,
-        total=total,
-        format_total=True,
-        format_number=True,
-    )
+                            css_framework=PAGINATION_FRAMEWORK,
+                            PER_PAGE=PER_PAGE,
+                            total=total,
+                            format_total=True,
+                            format_number=True,
+                           )
     return render_template('jokes/index.html',
-        jokes=jokes, pagination=pagination)
+                           jokes=jokes, pagination=pagination)
 
-@mod.route('/<id>')
-def joke(id):
-    joke = Joke.query.filter_by(id=id).first()
+@JOKES_MOD.route('/<joke_id>')
+def joke(joke_id):
+    """view for one specific joke"""
+    current_joke = Joke.query.filter_by(id=joke_id).first()
     return render_template('jokes/joke.html',
-        joke=joke)
-
-
-
+                           joke=current_joke)
