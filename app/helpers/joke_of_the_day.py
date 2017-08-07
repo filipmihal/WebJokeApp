@@ -1,6 +1,5 @@
 """helper for selecting the joke of the day"""
 import time
-import datetime
 from app.models import Joke
 def current_joke(date):
     """method select one specific joke which is selected by current date"""
@@ -14,10 +13,20 @@ def current_joke(date):
     return selected_joke
 class UiDate:
     """generate slovak date name"""
-    def __init__(self,day_name, day_num, month):
+    def get_day_name(self):
+        """method returns name of the day in Slovak language"""
         days_in_week = ["", "Pondelok", "Utorok", "Streda", "štvrtok", "Piatok", "Sobota", "Nedeľa"]
-        months = ["", "Január", "Február", "Marec", "Apríl", "Máj", "Jún", "Júl", "August", "September", "Október", "November", "December"]
+        return days_in_week[self.day_name]
+    def get_month_name(self):
+        """method returns name of month in Slovak language"""
+        months = ["", "Január", "Február", "Marec", "Apríl", "Máj", "Jún", "Júl",
+                  "August", "September", "Október", "November", "December"]
+        return months[self.month]
+    def get_day_number(self):
+        """method returns number of day in month"""
+        return self.day_num
+    def __init__(self, day_name, day_num, month):
         """set year, name of day and day number"""
-        self.day_name = days_in_week[int(day_name)]
+        self.day_name = int(day_name)
         self.day_num = day_num
-        self.month = months[int(month)]
+        self.month = int(month)
