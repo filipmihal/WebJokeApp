@@ -1,15 +1,13 @@
 language: python
 python:
 - 3.6.1
+cache: pip
 install: pip install -r requirements.txt
-
 before_script:
-  - nohup waitress-serve --listen=127.0.0.1:8000 app:app &
-
+  - nohup waitress-serve --listen=127.0.0.1:5000 app:APP &
 script:
   - python flask_tests.py
   - python ui_test.py
-
 deploy:
   provider: heroku
   api_key:

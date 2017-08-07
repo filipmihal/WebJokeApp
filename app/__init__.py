@@ -1,14 +1,11 @@
+"""init module"""
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
-app = Flask(__name__)
-app.config.from_object('config')
-db = SQLAlchemy(app)
-
+APP = Flask(__name__)
+APP.config.from_object('config')
+DB = SQLAlchemy(APP)
 from app import models
-from app.views.categories import mod
-from app.views.jokes import mod
-
-app.register_blueprint(views.categories.mod, url_prefix='/kategorie')
-app.register_blueprint(views.jokes.mod, url_prefix='/vtipy')
-
+from app.views.categories import CATEGORIES_MOD
+from app.views.jokes import JOKES_MOD
+APP.register_blueprint(CATEGORIES_MOD, url_prefix='/kategorie')
+APP.register_blueprint(JOKES_MOD, url_prefix='/vtipy')

@@ -1,10 +1,8 @@
 <!-- extend base layout -->
 {% extends "base.html" %} {% block content %}
-<h1>Kategória: {{ category.name }}</h1>
 <hr> {%for joke in jokes%}
 <div class="col-md-12 col-sm-12">
-  <div class="card card-nav-tabs">
-
+  <div class="card card-nav-tabs joke">
     <div class="content">
       <div class="tab-content">
         <div class="tab-pane active" id="profile">

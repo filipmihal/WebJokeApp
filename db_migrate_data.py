@@ -1,5 +1,5 @@
 import pymysql
-from app import db, models
+from app import DB, models
 #test
 def ConnectToDB():
     return pymysql.connect(host="localhost",   

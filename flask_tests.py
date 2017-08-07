@@ -1,40 +1,28 @@
+"""unit tests for WEb Joke APP"""
 import os
 import unittest
-from app import db
-from app import app
+from app import DB
+from app import APP
 from config import basedir
- 
- 
 TEST_DB = 'test.db'
- 
 class BasicTests(unittest.TestCase):
- 
-    ############################
-    #### setup and teardown ####
-    ############################
- 
-    # executed prior to each test
+    """unit tests class"""
     def setUp(self):
-        app.config['TESTING'] = True
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.config['DEBUG'] = False
-        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
+        """setting up all variables"""
+        APP.config['TESTING'] = True
+        APP.config['WTF_CSRF_ENABLED'] = False
+        APP.config['DEBUG'] = False
+        APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+        APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
             os.path.join(basedir, TEST_DB)
-        self.app = app.test_client()
-        db.drop_all()
-        db.create_all()
- 
-    # executed after each test
+        self.APP = APP.test_client()
+        DB.drop_all()
+        DB.create_all()
     def tearDown(self):
+        """run after test scripts"""
         pass
- 
- 
-###############
-#### tests ####
-###############
     def test_sample(self):
+        """sample test"""
         assert 1 == 1
- 
 if __name__ == "__main__":
     unittest.main()
