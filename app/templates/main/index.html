@@ -1,9 +1,4 @@
 <!-- extend base layout -->
 {% extends "base.html" %} {% block content %} 
-{%for line in joke_of_the_day.html_joke()%}
-    <p>{{line}}</p>
-{%endfor%}
-{{joke_of_the_day.rank}}<br/>
-<a href="{{ url_for('categories.category', name=joke_of_the_day.category.name) }}">{{joke_of_the_day.category.name}}</a>
- 
+{% include "components/joke_of_the_day.html"%}
 {% endblock %}
