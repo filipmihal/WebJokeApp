@@ -7,5 +7,6 @@ DB = SQLAlchemy(APP)
 from app import models
 from app.views.categories import CATEGORIES_MOD
 from app.views.jokes import JOKES_MOD
+import app.views.main
 APP.register_blueprint(CATEGORIES_MOD, url_prefix='/kategorie')
 APP.register_blueprint(JOKES_MOD, url_prefix='/vtipy')
