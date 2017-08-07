@@ -1,3 +1,7 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=e46474ef2b749ea6f089d20d8a00fd0b2002d65f8c46ee48f5a1b667e8e5c319
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
 language: python
 python:
 - 3.6.1
@@ -5,9 +9,13 @@ cache: pip
 install: pip install -r requirements.txt
 before_script:
   - nohup waitress-serve --listen=127.0.0.1:5000 app:APP &
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
 script:
-- python flask_tests.py
-- python ui_test.py
+  - python flask_tests.py
+  - python ui_test.py
+  - bundle exec rspec
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 deploy:
   provider: heroku
   api_key:
