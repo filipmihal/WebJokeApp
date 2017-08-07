@@ -7,6 +7,10 @@ import time
 def index():
     """Homepage"""
     today = time.strftime("%Y-%m-%d")
+    day_name = time.strftime("%w")
+    day_num = time.strftime("%d")
+    month = time.strftime("%m")
     current_joke = joke_of_the_day.current_joke(today)
+    ui_date = joke_of_the_day.UiDate(day_name, day_num, month);
     return render_template('main/index.html',
-                           head_name="Vitajte!", joke_of_the_day=current_joke)
+                           head_name="Vitajte!", joke_of_the_day=current_joke, ui_date=ui_date)

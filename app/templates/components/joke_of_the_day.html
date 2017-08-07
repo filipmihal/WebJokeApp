@@ -1,19 +1,30 @@
 <div class="col-md-12 col-sm-12">
-  <div class="card card-nav-tabs joke">
-    <div class="content">
-      <div class="tab-content">
-        <div class="tab-pane active" id="profile">
-          <p>
-            {%for line in joke_of_the_day.html_joke()%} {{line}}
-            <br/> {%endfor%}
-          </p>
-        <a href="{{ url_for('categories.category', name=joke_of_the_day.category.name) }}">{{joke_of_the_day.category.name}}</a>
-          <button class="btn btn-success joke-like"><i class="fa fa-thumbs-o-up"></i></button>
-          <button class="btn btn-danger joke-dislike"><i class="fa fa-thumbs-o-down"></i></button>
-          <span class="sharing-area"><button class="btn btn-facebook facebook-share"><i class="fa fa-facebook"></i></button></span>
-          <button class="btn btn-info play-voice-api"><i class="fa fa-volume-up"></i></button>
+    <div class="card card-nav-tabs joke">
+        <div class="content">
+            <div class="tab-content">
+                <div class="tab-pane active">
+                    <div class="col-md-2">
+                        <time datetime="2014-09-20" class="icon">
+                            <em>{{ui_date.day_name}}</em>
+                            <strong>{{ui_date.month}}</strong>
+                            <span>{{ui_date.day_num}}</span>
+                        </time>
+                    </div>
+                    <div class="col-md-9">
+                        <p>
+                            {%for line in joke_of_the_day.html_joke()%} {{line}}
+                            <br/> {%endfor%}
+                        </p>
+                        <button class="btn btn-success joke-like"><i class="fa fa-thumbs-o-up"></i></button>
+                        <button class="btn btn-danger joke-dislike"><i class="fa fa-thumbs-o-down"></i></button>
+                        <span class="sharing-area"><button class="btn btn-facebook facebook-share"><i class="fa fa-facebook"></i></button></span>
+                        <button class="btn btn-info play-voice-api"><i class="fa fa-volume-up"></i></button>
+                    </div>
+                    <div class="col-md-1">
+                        Vtip dňa
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
