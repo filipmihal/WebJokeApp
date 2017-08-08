@@ -1,7 +1,9 @@
 """helper for selecting the joke of the day"""
 import time
+
 from app.models import Joke
 from app.constants import languages
+
 def current_joke(date):
     """method select one specific joke which is selected by current date"""
     valid_jokes_count = Joke.query.count()
@@ -12,6 +14,7 @@ def current_joke(date):
         current_joke_id = valid_jokes_count
     selected_joke = Joke.query.filter_by(id=current_joke_id).first()
     return selected_joke
+
 class UiDate:
     """generate slovak date name"""
     def get_day_name(self):

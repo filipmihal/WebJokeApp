@@ -1,9 +1,12 @@
 """ view for showing all jokes and unique jokes """
-from flask import render_template, redirect, Blueprint
+from flask import Blueprint, redirect, render_template
 from flask_paginate import Pagination
+
 from app.models import Joke
-from config import PER_PAGE, PAGINATION_FRAMEWORK
+from config import PAGINATION_FRAMEWORK, PER_PAGE
+
 JOKES_MOD = Blueprint('jokes', __name__)
+
 @JOKES_MOD.route('/', defaults={'page': 1})
 @JOKES_MOD.route('/page/<page>')
 @JOKES_MOD.route('/page/<page>/')
