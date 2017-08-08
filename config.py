@@ -1,5 +1,7 @@
 import os
+import app
 basedir = os.path.abspath(os.path.dirname(__file__))
+APP_ROOT_FOLDER = os.path.abspath(os.path.dirname(app.__file__))
 
 CSRF_ENABLED = True
 SECRET_KEY = 'you-will-never-guess'
