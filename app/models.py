@@ -40,11 +40,21 @@ class Joke(DB.Model):
         """from (string) joke --> to (array) joke divided by enters"""
         return self.joke.split('\n')
 
+    def have_reaction(self, current_ip):
+        """check if client has already reacted current joke"""
+        return self.reactions.filter(joke_reaction.c.ip_address == current_ip).first()
+
+    def reaction(self, current_ip, current_reaction_id):
+        if not self.have_reaction(current_ip):
+            #self.reactions.append(user)
+            return self
+
 class Reaction(DB.Model):
     """joke reaction"""
     id = DB.Column(DB.Integer, primary_key=True)
     name = DB.Column(DB.String(128), unique=True)
     image_src = DB.Column(DB.String(128), unique=True)
+    rate = DB.Column(DB.Integer, unique=True)
     jokes = DB.relationship('Joke',
                                 secondary=joke_reaction,
                                 backref='reaction',
