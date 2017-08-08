@@ -22,7 +22,6 @@ class BasicTests(unittest.TestCase):
         APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
             os.path.join(BASEDIR, TEST_DB)
         self.app = APP.test_client()
-
     def tearDown(self):
         """run after test scripts"""
         pass
@@ -32,11 +31,16 @@ class BasicTests(unittest.TestCase):
         str_date = '2017-08-14'
         jokes_ids = []
         jokes_count = Joke.query.count()
+
+        if jokes_count == 0:
+            raise Exception('There are no jokes in database')
+
         for i in range(jokes_count):
             modified_date = datetime.strptime(str_date, "%Y-%m-%d")
             new_date = modified_date + timedelta(days=i)
             new_date = new_date.strftime("%Y-%m-%d")
             joke = current_joke(new_date)
+
             if joke.id in jokes_ids:
                 assert False
             jokes_ids.append(joke.id)

@@ -1,8 +1,12 @@
 """base views for Web Joke App"""
 import time
+
 from flask import render_template
+
 from app import APP
 from app.helpers import joke_of_the_day
+
+
 @APP.route('/')
 def index():
     """Homepage"""
