@@ -1,13 +1,17 @@
 """ UI tests for Web Joke App """
-import unittest
 import math
+import unittest
 from random import randint
-from selenium import webdriver
-from app.models import Category
-from app import APP
-from sqlalchemy.sql.expression import func
+
 from flask import url_for
+from sqlalchemy.sql.expression import func
+
+from app import APP
+from app.models import Category
 from config import PER_PAGE
+from selenium import webdriver
+
+
 class BasicTests(unittest.TestCase):
     """class for all unit tests"""
     def setUp(self):

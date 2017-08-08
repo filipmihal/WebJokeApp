@@ -16,6 +16,7 @@ develop-eggs
 db_repostirory/__pycache__
 app/views/__pycache__
 app/tmplates.__pycache__
+.vscode
 # Installer logs
 pip-log.txt
 ghostdriver.log
