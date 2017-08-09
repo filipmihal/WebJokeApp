@@ -6,7 +6,7 @@ from app import DB
 joke_reaction = DB.Table('joke_reaction',
                          DB.Column('joke_id', DB.Integer, DB.ForeignKey('joke.id')),
                          DB.Column('reaction_id', DB.Integer, DB.ForeignKey('reaction.id')),
-                         DB.Column('ip_address', DB.String(128), unique=True)
+                         DB.Column('ip_address', DB.String(128), index=True)
                         )
 
 class Category(DB.Model):
