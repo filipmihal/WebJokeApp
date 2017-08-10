@@ -67,12 +67,15 @@ class Joke(DB.Model):
         neutral_num = self.reactions_num(ReactionsType.neutral)
         smile_num = self.reactions_num(ReactionsType.smile)
         funny_num = self.reactions_num(ReactionsType.funny)
-        reactions_data = [
-            ('unamused', unamused_num),
-            ('neutral', neutral_num),
-            ('smile', smile_num),
-            ('funny', funny_num)
-        ]
+        reactions_data = []
+        if unamused_num != 0:
+            reactions_data.append(("unamused", unamused_num))
+        if neutral_num != 0:
+            reactions_data.append(("neutral", neutral_num))
+        if smile_num != 0:
+            reactions_data.append(("smile", smile_num))
+        if funny_num != 0:
+            reactions_data.append(("funny", funny_num))
         reactions_data = sorted(reactions_data, key=itemgetter(1), reverse=True)
         return reactions_data
     def add_reaction(self, reaction_enum):

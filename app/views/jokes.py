@@ -64,10 +64,10 @@ def rate_joke():
     if not current_joke:
         return False
 
-    new_reaction = current_joke.add_reaction(reaction)
-    if not new_reaction:
+    new_data = current_joke.add_reaction(reaction)
+    if not new_data:
          return json.dumps({'status': 'False'});
     else:
-        return json.dumps({'status': 'True'});
+        return json.dumps({'status': 'True', 'data':current_joke.order_reactions()});
     
 

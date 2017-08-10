@@ -12,6 +12,7 @@ $(".reaction").on("click", function () {
         url: '/vtipy/rate-joke',
         data: data,
         type: 'POST',
+        dataType: "json",
         success: function (response) {
             console.log(response);
             var text_reaction = "";
@@ -35,6 +36,11 @@ $(".reaction").on("click", function () {
             $element.parents('.joke-reaction').find(".like-btn-emo").removeClass().addClass('like-btn-emo').addClass('like-btn-' + data_reaction.toLowerCase());
             current_reactions += 1;
             $element.parents('.joke-reaction').prev().find(".like-details").text(current_reactions);
+            var reaction_order = "";
+            response.data.forEach(function(element) {
+                reaction_order += "<span class='reaction-btn like-btn-" + element[0] + "' rel='tooltip'  title='" + element[1] + "' data-placement='top'></span>";
+            }, this);
+            $element.parents('.joke-reaction').prev().find(".like-emo").html(reaction_order);
         },
         error: function (error) {
             console.log(error);
