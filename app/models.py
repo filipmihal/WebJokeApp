@@ -1,6 +1,7 @@
 """DB model"""
 import enum
 import datetime
+from operator import itemgetter
 from sqlalchemy import and_
 from sqlalchemy.types import TIMESTAMP, Enum
 
@@ -14,11 +15,13 @@ class ReactionsType(enum.Enum):
     smile = 3
     funny = 4
 
-joke_reaction = DB.Table('joke_reaction',
-                         DB.Column('joke_id', DB.Integer, DB.ForeignKey('joke.id')),
-                         DB.Column('reaction_type', Enum(ReactionsType)),
-                         DB.Column('created_at', TIMESTAMP, default=datetime.datetime.utcnow)
-                        )
+class JokeReaction(DB.Model):
+    """jokes reactions model"""
+    __tablename__ = 'joke_reaction'
+    id = DB.Column(DB.Integer, primary_key=True)
+    joke_id = DB.Column(DB.Integer, DB.ForeignKey('joke.id'))
+    reaction_type = DB.Column(Enum(ReactionsType))
+    created_at = DB.Column(Enum(ReactionsType))
 
 class Category(DB.Model):
     """Joke category model """
@@ -38,6 +41,7 @@ class Joke(DB.Model):
     joke_length = DB.Column(DB.Integer)
     rank = DB.Column(DB.Float, index=True)
     category_id = DB.Column(DB.Integer, DB.ForeignKey('category.id'))
+    reactions = DB.relationship('JokeReaction', backref='joke_reaction', lazy='dynamic')
 
     def __repr__(self):
         """info about joke"""
@@ -47,37 +51,34 @@ class Joke(DB.Model):
         """from (string) joke --> to (array) joke divided by enters"""
         return self.joke.split('\n')
 
-    def unamused_reactions_num(self):
-        reactions = DB.session.query(joke_reaction).filter(and_(joke_reaction.c.joke_id==self.id,
-                                                                    joke_reaction.c.reaction_type == ReactionsType.unamused
-                                                                   )).count()
-        return reactions
-    
-    def neutral_reactions_num(self):
-        reactions = DB.session.query(joke_reaction).filter(and_(joke_reaction.c.joke_id==self.id,
-                                                                    joke_reaction.c.reaction_type == ReactionsType.neutral
-                                                                   )).count()
-        return reactions
-
-    def smile_reactions_num(self):
-        reactions = DB.session.query(joke_reaction).filter(and_(joke_reaction.c.joke_id==self.id,
-                                                                    joke_reaction.c.reaction_type == ReactionsType.smile
-                                                                   )).count()
-        return reactions
-    def funny_reactions_num(self):
-        reactions = DB.session.query(joke_reaction).filter(and_(joke_reaction.c.joke_id==self.id,
-                                                                    joke_reaction.c.reaction_type == ReactionsType.funny
-                                                                   )).count()
+    def reactions_num(self, current_enum):
+        """number of specific reaction"""
+        reactions = self.reactions.filter(JokeReaction.reaction_type == current_enum).count()
         return reactions
 
     def all_reactions(self):
-        reactions = DB.session.query(joke_reaction).filter(
-                                                            joke_reaction.c.joke_id==self.id
-                                                          ).count()
+        """number of all reactions for specifi joke"""
+        reactions = self.reactions.count()
         return reactions
+
+    def order_reactions(self):
+        """order reactions"""
+        unamused_num = self.reactions_num(ReactionsType.unamused)
+        neutral_num = self.reactions_num(ReactionsType.neutral)
+        smile_num = self.reactions_num(ReactionsType.smile)
+        funny_num = self.reactions_num(ReactionsType.funny)
+        reactions_data = [
+            ('unamused', unamused_num),
+            ('neutral', neutral_num),
+            ('smile', smile_num),
+            ('funny', funny_num)
+        ]
+        reactions_data = sorted(reactions_data, key=itemgetter(1), reverse=True)
+        return reactions_data
     def add_reaction(self, reaction_enum):
         """method called after a user made reaction"""
-        new_reaction = joke_reaction.insert().values(joke_id=self.id, reaction_type=reaction_enum)
-        DB.engine.execute(new_reaction)
+        new_reaction = JokeReaction(joke_id=self.id, reaction_type=reaction_enum)
+        DB.session.add(new_reaction)
+        DB.session.commit()
         #DB.engine.execute()
         return True

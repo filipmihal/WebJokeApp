@@ -1,17 +1,50 @@
-function add_joke_reaction(joke_id, reaction_id) {
+$(".reaction").on("click", function () {
+    var $element = $(this);
+    var data_reaction = $element.attr("data-reaction");
+    var joke_id = Number($element.attr("data-jokeid"));
+    var reaction_id = Number($element.attr("data-reactionid"));
+    var current_reactions = Number($element.parents('.joke-reaction').prev().find(".like-details").text());
     var data = {
-        joke_id : joke_id,
-        reaction_id : reaction_id
+        joke_id: joke_id,
+        reaction_id: reaction_id
     }
     $.ajax({
-            url: '/vtipy/rate-joke',
-            data: data,
-            type: 'POST',
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (error) {
-                console.log(error);
+        url: '/vtipy/rate-joke',
+        data: data,
+        type: 'POST',
+        success: function (response) {
+            console.log(response);
+            var text_reaction = "";
+            switch (reaction_id) {
+                case 1:
+                    txt_reaction = "Zlé";
+                    break;
+                case 2:
+                    txt_reaction = "Nuda";
+                    break;
+                case 3:
+                    txt_reaction = "Vtipné";
+                    break;
+                case 4:
+                    txt_reaction = "Super!";
+                    break;
+                default:
+                    txt_reaction = "Ohodnotiť";
             }
-        });
-    }
+            $element.parents('.joke-reaction').find(".like-btn-text").text(txt_reaction).addClass('like-btn-text-' + data_reaction.toLowerCase()).addClass("active");
+            $element.parents('.joke-reaction').find(".like-btn-emo").removeClass().addClass('like-btn-emo').addClass('like-btn-' + data_reaction.toLowerCase());
+            current_reactions += 1;
+            $element.parents('.joke-reaction').prev().find(".like-details").text(current_reactions);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+});
+
+ $(".like-btn-text").on("click", function () {
+        if ($(this).hasClass("active")) {
+            $(".like-btn-text").text("Ohodnotiť").removeClass();
+            $(".like-btn-emo").removeClass().addClass('like-btn-emo').addClass("like-btn-default");
+        }
+    });

@@ -1,39 +1,8 @@
 {% extends "base.html" %} {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/reaction.css') }}"> {% endblock %}
-    {% block content %}
-    <div class="col-md-12">
-    {%for line in joke.html_joke()%}
-    <p>{{line}}</p>
-    {%endfor%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reaction.css') }}"> {% endblock %} {% block content %}
+<div class="col-md-12">
+{% include "components/joke.html" %}
 </div>
-<div class="col-md-2 like-stat">
-    <!-- Like statistic container-->
-    <span class="like-emo"> 
-        <span class="reaction-btn like-btn-unamused" rel="tooltip" data-num="{{joke.unamused_reactions_num()}}" title="{{joke.unamused_reactions_num()}}" data-placement="top"></span>
-        <span class="reaction-btn like-btn-neutral" rel="tooltip" data-num="{{joke.neutral_reactions_num()}}" title="{{joke.neutral_reactions_num()}}" data-placement="top"></span>
-        <span class="reaction-btn like-btn-smile" rel="tooltip" data-num="{{joke.smile_reactions_num()}}" title="{{joke.smile_reactions_num()}}" data-placement="top"></span>
-        <span class="reaction-btn like-btn-funny" rel="tooltip" data-num="{{joke.funny_reactions_num()}}" title="{{joke.funny_reactions_num()}}" data-placement="top"></span>
-    </span>
-    <span class="like-details">{{joke.all_reactions()}}</span>
-</div>
-<div class="joke-reaction col-md-3">
-    <span class="like-btn">
-						<span class="like-btn-emo"></span>
-    <span class="like-btn-text"><i class="fa fa-thumbs-up"></i> Ohodnotiť</span>
-    <ul class="reactions-box">
-        <li class="reaction reaction-unamused" data-reaction="unamused" onclick='add_joke_reaction( {{joke.id}}, 1)'></li>
-        <li class="reaction reaction-neutral" data-reaction="neutral" onclick='add_joke_reaction( {{joke.id}}, 2)'></li>
-        <li class="reaction reaction-smile" data-reaction="smile" onclick='add_joke_reaction( {{joke.id}}, 3)'></li>
-        <li class="reaction reaction-funny" data-reaction="funny" onclick='add_joke_reaction( {{joke.id}}, 4)'></li>
-    </ul>
-    </span>
-</div>
-
-{% endblock %} 
-{% block scripts %}
-<script>
-    
-</script>
+{% endblock %} {% block scripts %}
 <script src="{{ url_for('static', filename='js/controllers/add_joke_reaction.js') }}"></script>
-<script src="{{ url_for('static', filename='js/controllers/ui_reaction.js') }}"></script>
 {% endblock %}

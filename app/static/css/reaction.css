@@ -1,15 +1,33 @@
+.row-bordered:after {
+  content: "";
+  display: block;
+  border-bottom: 1px solid #ccc;
+  margin: 0 1px;
+}
+
 .joke-reaction {
     max-width: 100%;
-    padding: 0 60px;
+    padding: 15px 0px;
     position: relative;
+    margin-top: 5px;
 }
 
 .like-btn {
     font-weight: bold;
     color: #7f7f7f;
-    position: relative;
     cursor: pointer;
-    padding: 20px 20px 0 0;
+    padding: 20px;
+}
+
+.reaction-icon{
+    color: black;
+}
+
+.reaction-btn {
+    font-weight: bold;
+    color: #7f7f7f;
+    cursor: pointer;
+    margin-top: 4.7px;
 }
 
 .like-btn:hover {
@@ -193,6 +211,13 @@
     background-position: center;
 }
 
+.like-btn-default {
+    background-image: url('/static/img/emojis/like.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
 .like-emo>span {
     display: inline-block;
     margin: 0 -6px 0px 0px;
@@ -205,5 +230,5 @@
     margin-top: -3px;
     margin-left: 10px;
     color: #9197a3;
-    font-size: 15px;
+    font-size: 25px;
 }
