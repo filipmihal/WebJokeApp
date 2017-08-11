@@ -82,13 +82,10 @@ class BasicTests(unittest.TestCase):
 
     def test_sorting_method(self):
         """test sorting method in models"""
-        testing_joke = Joke.query.filter_by(id=1).first()
+        testing_joke = Joke.query.get(1)
         insert_joke_reactions(testing_joke)
         testing_order = testing_joke.order_reactions()
-        result_order = [("funny", 3), ("unamused", 2), ("smile", 1)]
-        assert testing_order == result_order
-        
-
+        assert testing_order == [("funny", 3), ("unamused", 2), ("smile", 1)]
 
 if __name__ == "__main__":
     unittest.main()
