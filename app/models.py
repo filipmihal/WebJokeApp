@@ -1,8 +1,7 @@
 """DB model"""
 import enum
-import datetime
+from datetime import datetime
 from operator import itemgetter
-from sqlalchemy import and_
 from sqlalchemy.types import TIMESTAMP, Enum
 
 from app import DB
@@ -21,7 +20,7 @@ class JokeReaction(DB.Model):
     id = DB.Column(DB.Integer, primary_key=True)
     joke_id = DB.Column(DB.Integer, DB.ForeignKey('joke.id'))
     reaction_type = DB.Column(Enum(ReactionsType))
-    created_at = DB.Column(Enum(ReactionsType))
+    created_at = DB.Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
 
 class Category(DB.Model):
     """Joke category model """
@@ -70,8 +69,8 @@ class Joke(DB.Model):
         reactions_data = sorted(reactions_data, key=itemgetter(1), reverse=True)
         return reactions_data
 
-    def add_reaction(self, reaction_enum):
+    def add_reaction(self, reaction_type):
         """method called after a user made reaction"""
-        new_reaction = JokeReaction(joke_id=self.id, reaction_type=reaction_enum)
+        new_reaction = JokeReaction(joke_id=self.id, reaction_type=reaction_type)
         DB.session.add(new_reaction)
         DB.session.commit()
