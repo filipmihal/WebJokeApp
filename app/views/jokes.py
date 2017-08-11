@@ -1,4 +1,5 @@
 """ view for showing all jokes and unique jokes """
+import logging
 from flask import Blueprint, redirect, render_template, request, json
 from flask_paginate import Pagination
 
@@ -7,6 +8,7 @@ from app.models import ReactionsType
 from config import PAGINATION_FRAMEWORK, PER_PAGE
 
 JOKES_MOD = Blueprint('jokes', __name__)
+LOGGER = logging.getLogger("backend")
 
 @JOKES_MOD.route('/', defaults={'page': 1})
 @JOKES_MOD.route('/page/<page>')
@@ -44,30 +46,27 @@ def rate_joke():
     try:
         reaction_id = int(reaction_id)
     except:
-        return False
+        LOGGER.error("reaction id is not an integer: ", reaction_id)
+        return json.dumps({'status': False})
 
     try:
         joke_id = int(joke_id)
     except:
-        return False
+        LOGGER.error("joke id is not an integer: ", reaction_id)
+        return json.dumps({'status': False})
 
-    if reaction_id == 1:
-        reaction = ReactionsType.unamused
-    elif reaction_id == 2:
-        reaction = ReactionsType.neutral
-    elif reaction_id == 3:
-        reaction = ReactionsType.smile
-    elif reaction_id == 4:
-        reaction = ReactionsType.funny
+    try:
+        reaction = ReactionsType(reaction_id)
+    except Exception as e:
+        LOGGER.error("not found reaction id in ReactionsType enum ", str(e))
+        return json.dumps({'status': False})
     
     current_joke = Joke.query.filter_by(id=joke_id).first()
     if not current_joke:
-        return False
+        LOGGER.error("joke not found")
+        return json.dumps({'status': False})
 
-    new_data = current_joke.add_reaction(reaction)
-    if not new_data:
-         return json.dumps({'status': 'False'});
-    else:
-        return json.dumps({'status': 'True', 'data':current_joke.order_reactions()});
+    current_joke.add_reaction(reaction)
+    return json.dumps({'status': True, 'data':current_joke.order_reactions()})
     
 

@@ -51,37 +51,27 @@ class Joke(DB.Model):
         """from (string) joke --> to (array) joke divided by enters"""
         return self.joke.split('\n')
 
-    def reactions_num(self, current_enum):
+    def reactions_num(self, reaction_type):
         """number of specific reaction"""
-        reactions = self.reactions.filter(JokeReaction.reaction_type == current_enum).count()
-        return reactions
+        return self.reactions.filter(JokeReaction.reaction_type == reaction_type).count()
 
     def all_reactions(self):
         """number of all reactions for specifi joke"""
-        reactions = self.reactions.count()
-        return reactions
+        return self.reactions.count()
 
     def order_reactions(self):
         """order reactions"""
-        unamused_num = self.reactions_num(ReactionsType.unamused)
-        neutral_num = self.reactions_num(ReactionsType.neutral)
-        smile_num = self.reactions_num(ReactionsType.smile)
-        funny_num = self.reactions_num(ReactionsType.funny)
-        reactions_data = []
-        if unamused_num != 0:
-            reactions_data.append(("unamused", unamused_num))
-        if neutral_num != 0:
-            reactions_data.append(("neutral", neutral_num))
-        if smile_num != 0:
-            reactions_data.append(("smile", smile_num))
-        if funny_num != 0:
-            reactions_data.append(("funny", funny_num))
+        reactions_data = [
+            ("unamused", self.reactions_num(ReactionsType.unamused)),
+            ("neutral", self.reactions_num(ReactionsType.neutral)),
+            ("smile", self.reactions_num(ReactionsType.smile)),
+            ("funny", self.reactions_num(ReactionsType.funny))]
+        reactions_data = [item for item in reactions_data if item[1] > 0]
         reactions_data = sorted(reactions_data, key=itemgetter(1), reverse=True)
         return reactions_data
+
     def add_reaction(self, reaction_enum):
         """method called after a user made reaction"""
         new_reaction = JokeReaction(joke_id=self.id, reaction_type=reaction_enum)
         DB.session.add(new_reaction)
         DB.session.commit()
-        #DB.engine.execute()
-        return True
