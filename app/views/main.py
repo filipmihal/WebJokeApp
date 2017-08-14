@@ -18,3 +18,4 @@ def index():
     ui_date = joke_of_the_day.UiDate(day_name, day_num, month)
     return render_template('main/index.html',
                            head_name="Vitajte!", joke_of_the_day=current_joke, ui_date=ui_date)
+
