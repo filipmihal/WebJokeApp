@@ -10,16 +10,19 @@ load_dotenv(dotenv_path)
 
 
 SECURITY_POST_LOGIN = '/profile'
+SECURITY_LOGIN_URL = '/prihlasenie'
 SECURITY_REGISTERABLE = True
 SECURITY_PASSWORD_HASH = 'bcrypt'
 SECURITY_PASSWORD_SALT = os.environ.get("PASSWORD_SALT")
+SECURITY_CHANGEABLE = True
+SECURITY_RECOVERABLE = True
 
-MAIL_SERVER = 'smtp.mailgun.org'
-MAIL_PORT = 465
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_PORT = 587
 MAIL_USE_SSL = False
-MAIL_USE_TSL = True
+MAIL_USE_TLS = True
 MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
-MAIL_DEFAULT_SENDER = 'MAIL FROM: <jakub.promedia@gmail.com>'
+MAIL_DEFAULT_SENDER = 'tester.jozko@gmail.com'
 MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))

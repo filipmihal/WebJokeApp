@@ -9,7 +9,7 @@ click==6.7
 colorama==0.3.9
 decorator==4.1.1
 defusedxml==0.5.0
-facebook-sdk==3.0.0a0
+http://github.com/pythonforfacebook/facebook-sdk/tarball/master
 Flask==0.12.2
 Flask-BabelEx==0.9.3
 Flask-Login==0.4.0

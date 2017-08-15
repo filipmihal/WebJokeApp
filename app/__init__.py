@@ -11,6 +11,9 @@ from app import models
 from app.views.categories import CATEGORIES_MOD
 from app.views.jokes import JOKES_MOD
 import app.views.main
+# Bootstrap
+from flask_bootstrap import Bootstrap
+Bootstrap(APP)
 USER_DATASTORE = SQLAlchemyUserDatastore(DB, models.User, models.Role)
 SECURITY = Security(APP, USER_DATASTORE)
 #APP.wsgi_app = ProxyFix(APP.wsgi_app, num_proxies=1)

@@ -26,53 +26,7 @@
 
 <body class="components-page">
 	<!-- Navbar -->
-	<nav class="navbar navbar-transparent navbar-fixed-top navbar-color-on-scroll">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-index">
-	        	<span class="sr-only">Toggle navigation</span>
-	        	<span class="icon-bar"></span>
-	        	<span class="icon-bar"></span>
-	        	<span class="icon-bar"></span>
-	    	</button>
-					<a class="navbar-brand" href="/">Smútok neexistuje &nbsp {% if category%}( {{category.name}} ){%endif%}<div class="ripple-container"></div></a>
-			</div>
-
-			<div class="collapse navbar-collapse" id="navigation-index">
-				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<a href="{{ url_for('categories.index') }}">
-						<i class="material-icons">toc</i> Kategórie
-					</a>
-					</li>
-					<li>
-						<a href="{{ url_for('jokes.index') }}">
-						<i class="material-icons">grade</i> Najlepšie vtipy
-					</a>
-					</li>
-					<li>
-						<a rel="tooltip" title="Sleduj nás na Twittri" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank"
-						    class="btn btn-white btn-simple btn-just-icon">
-						<i class="fa fa-twitter"></i>
-					</a>
-					</li>
-					<li>
-						<a rel="tooltip" title="Lajkni náš FB" data-placement="bottom" href="https://www.facebook.com/CreativeTim" target="_blank"
-						    class="btn btn-white btn-simple btn-just-icon">
-						<i class="fa fa-facebook-square"></i>
-					</a>
-					</li>
-					<li>
-						<a rel="tooltip" title="Sleduj nás na Insta" data-placement="bottom" href="https://www.instagram.com/CreativeTimOfficial"
-						    target="_blank" class="btn btn-white btn-simple btn-just-icon">
-						<i class="fa fa-instagram"></i>
-					</a>
-					</li>
-
-				</ul>
-			</div>
-		</div>
-	</nav>
+	{% include "menu.html" %} 
 	<!-- End Navbar -->
 
 	<div class="wrapper">
@@ -80,7 +34,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
-						<h1 class="title text-center">{{head_name}}</h1>
+						<h1 class="title text-center">{% block title %}{{head_name|default}}{% endblock title %}</h1>
 					</div>
 				</div>
 			</div>
@@ -93,38 +47,7 @@
 				</div>
 			</div>
 		</div>
-
-		<footer class="footer">
-			<div class="container">
-				<nav class="pull-left">
-					<ul>
-						<li>
-							<a href="{{ url_for('categories.index') }}">
-							Kategórie
-						</a>
-						</li>
-						<li>
-							<a href="http://presentation.creative-tim.com">
-						   Top vtipy
-						</a>
-						</li>
-						<li>
-							<a href="http://blog.creative-tim.com">
-						   Galéria vtipov
-						</a>
-						</li>
-						<li>
-							<a href="http://www.creative-tim.com/license">
-							Smiech nikdy nespí
-						</a>
-						</li>
-					</ul>
-				</nav>
-				<div class="copyright pull-right">
-					&copy; 2016, Túto webovú stránku sme vytvorili so <i class="material-icons">favorite</i> Váš AppoxideLab
-				</div>
-			</div>
-		</footer>
+	{%include "footer.html" %}
 	</div>
 
 	<!--   Core JS Files   -->

@@ -1,0 +1,13 @@
+{% extends "base.html" %} 
+{% block content%}
+{% include "security/_messages.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title%}{{ _('Login') }}{% endblock %}
+<form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+  {{ login_user_form.hidden_tag() }}
+  {{ wtf.form_field(login_user_form.email) }}
+  {{ wtf.form_field(login_user_form.password) }}
+  {{ wtf.form_field(login_user_form.remember) }}
+  {{ wtf.form_field(login_user_form.submit, button_map={"submit":"success"}) }}
+</form>
+{%endblock%}
