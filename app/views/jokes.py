@@ -2,6 +2,7 @@
 import logging
 from flask import Blueprint, redirect, render_template, request, json
 from flask_paginate import Pagination
+from flask_login import current_user
 
 from app.models import Joke
 from app.models import ReactionsType
@@ -66,7 +67,7 @@ def rate_joke():
         LOGGER.error("joke not found")
         return json.dumps({'status': False})
 
-    current_joke.add_reaction(reaction)
+    current_joke.add_reaction(reaction, current_user.id)
     return json.dumps({'status': True, 'data':current_joke.order_reactions()})
     
 

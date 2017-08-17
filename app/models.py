@@ -21,6 +21,7 @@ class JokeReaction(DB.Model):
     __tablename__ = 'joke_reaction'
     id = DB.Column(DB.Integer, primary_key=True)
     joke_id = DB.Column(DB.Integer, DB.ForeignKey('joke.id'))
+    user_id = DB.Column(DB.Integer, DB.ForeignKey('user.id'), default=0)
     reaction_type = DB.Column(Enum(ReactionsType))
     created_at = DB.Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
 
@@ -71,9 +72,9 @@ class Joke(DB.Model):
         reactions_data = sorted(reactions_data, key=itemgetter(1), reverse=True)
         return reactions_data
 
-    def add_reaction(self, reaction_type):
+    def add_reaction(self, reaction_type, user_id):
         """method called after a user made reaction"""
-        new_reaction = JokeReaction(joke_id=self.id, reaction_type=reaction_type)
+        new_reaction = JokeReaction(joke_id=self.id, reaction_type=reaction_type, user_id = user_id)
         DB.session.add(new_reaction)
         DB.session.commit()
 
@@ -97,4 +98,6 @@ class User(DB.Model, UserMixin):
     confirmed_at = DB.Column(DB.DateTime())
     roles = DB.relationship('Role', secondary=roles_users,
                             backref=DB.backref('users', lazy='dynamic'))
+    jokes = DB.relationship('Joke', secondary="joke_reaction",
+        backref=DB.backref('users', lazy='dynamic'))
 

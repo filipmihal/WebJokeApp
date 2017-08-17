@@ -1,7 +1,27 @@
 <!-- extend base layout -->
 {% extends "base.html" %} 
-{%block head%}
-{%endblock%}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='css/reaction.css') }}"> {% endblock %}
+{% block title %} Môj profil {% endblock %} 
 {% block content %} 
-fkfashahjkdhakjh
+Email: {{current_user.email}} !
+<h2>{{_("Vtipy, ktoré ťa zaujali")}}:</h2>
+{%for joke in current_user.jokes%}
+<div class="col-md-12 col-sm-12">
+  <div class="card card-nav-tabs joke">
+    <div class="content">
+      <div class="tab-content">
+        <div class="tab-pane active">
+         {% include "components/joke.html" %}
+          <!-- <span class="sharing-area"><button class="btn btn-facebook facebook-share"><i class="fa fa-facebook"></i></button></span>
+          <button class="btn btn-info play-voice-api"><i class="fa fa-volume-up"></i></button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endfor%}
+{% endblock %}
+{%block scripts%}
+<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+<script src="{{ url_for('static', filename='js/controllers/add_joke_reaction.js') }}"></script>
 {% endblock %}
