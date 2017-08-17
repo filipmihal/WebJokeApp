@@ -20,7 +20,7 @@ app/tmplates.__pycache__
 # Installer logs
 pip-log.txt
 ghostdriver.log
-
+.env
 # Unit test / coverage reports
 .coverage
 .tox
