@@ -72,7 +72,7 @@ class Joke(DB.Model):
         reactions_data = sorted(reactions_data, key=itemgetter(1), reverse=True)
         return reactions_data
 
-    def add_reaction(self, reaction_type, user_id):
+    def add_reaction(self, reaction_type, user_id = 0):
         """method called after a user made reaction"""
         new_reaction = JokeReaction(joke_id=self.id, reaction_type=reaction_type, user_id = user_id)
         DB.session.add(new_reaction)
