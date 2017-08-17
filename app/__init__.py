@@ -1,4 +1,6 @@
 """init module"""
+#from werkzeug.contrib.fixers import ProxyFix
+from flask_mail import Mail
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore, login_required 

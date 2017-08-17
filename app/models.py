@@ -1,5 +1,6 @@
 """DB model"""
 import enum
+from flask_security import UserMixin, RoleMixin
 from datetime import datetime
 from operator import itemgetter
 from sqlalchemy.types import TIMESTAMP, Enum

@@ -13,7 +13,7 @@ var
 sdist
 develop-eggs
 .installed.cfg
-db_repostirory/__pycache__
+db_repostirory
 app/views/__pycache__
 app/tmplates.__pycache__
 .vscode

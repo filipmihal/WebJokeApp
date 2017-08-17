@@ -1,10 +1,18 @@
 {% extends "auth.html" %} 
+<<<<<<< HEAD
+=======
+{% block page_style%}signup-page{% endblock %}
+>>>>>>> 3ed5d496c7b530fdcaecefd841f75a59b61817fb
 {% block content%}
 {% import "bootstrap/wtf.html" as wtf %}
 <form action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
   {{ register_user_form.hidden_tag() }}
 <div class="header header-primary text-center">
+<<<<<<< HEAD
                                     <h4>{{ _('Register') }}</h4>
+=======
+                                    <h4>Sign Up</h4>
+>>>>>>> 3ed5d496c7b530fdcaecefd841f75a59b61817fb
                                     <div class="social-line">
                                         <a href="#pablo" class="btn btn-simple btn-just-icon">
 											<i class="fa fa-facebook-square"></i>
@@ -54,7 +62,11 @@
 									</div> -->
                                 </div>
                                 <div class="footer text-center">
+<<<<<<< HEAD
                                     {{ wtf.form_field(register_user_form.submit, button_map={"submit":"primary"}) }}
+=======
+                                    {{ wtf.form_field(register_user_form.submit, button_map={"submit":"success"}) }}
+>>>>>>> 3ed5d496c7b530fdcaecefd841f75a59b61817fb
                                 </div>
                                   </form>
 {%endblock%}
