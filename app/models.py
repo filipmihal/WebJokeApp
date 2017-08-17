@@ -83,11 +83,13 @@ roles_users = DB.Table('roles_users',
         DB.Column('role_id', DB.Integer(), DB.ForeignKey('role.id')))
 
 class Role(DB.Model, RoleMixin):
+    """DB model Users Role"""
     id = DB.Column(DB.Integer(), primary_key=True)
     name = DB.Column(DB.String(80), unique=True)
     description = DB.Column(DB.String(255))
 
 class User(DB.Model, UserMixin):
+    """DB model User"""
     id = DB.Column(DB.Integer, primary_key=True)
     email = DB.Column(DB.String(255), unique=True)
     password = DB.Column(DB.String(255))

@@ -23,5 +23,6 @@ def index():
 @APP.route('/moj-profil')
 @login_required
 def profile():
+    """profile page"""
     return render_template('main/profile.html',
                            head_name="Vitajte!")
