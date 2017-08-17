@@ -74,10 +74,16 @@ class Joke(DB.Model):
 
     def add_reaction(self, reaction_type, user_id = 0):
         """method called after a user made reaction"""
+        if user_id != 0:
+            reaction = self.has_reacted(user_id)
+            if reaction:
+                DB.session.delete(reaction)
         new_reaction = JokeReaction(joke_id=self.id, reaction_type=reaction_type, user_id = user_id)
         DB.session.add(new_reaction)
         DB.session.commit()
 
+    def has_reacted(self, user_id):
+            return self.reactions.filter(JokeReaction.user_id == user_id).first()
 # Define models
 roles_users = DB.Table('roles_users',
         DB.Column('user_id', DB.Integer(), DB.ForeignKey('user.id')),

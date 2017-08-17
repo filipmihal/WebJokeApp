@@ -66,8 +66,12 @@ def rate_joke():
     if not current_joke:
         LOGGER.error("joke not found")
         return json.dumps({'status': False})
-
-    current_joke.add_reaction(reaction, current_user.id)
+    
+    try:
+        user_id = current_user.id
+    except:
+        user_id = 0
+    current_joke.add_reaction(reaction, user_id)
     return json.dumps({'status': True, 'data':current_joke.order_reactions()})
     
 
