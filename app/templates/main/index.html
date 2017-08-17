@@ -1,0 +1,8 @@
+<!-- extend base layout -->
+{% extends "base.html" %} 
+{%block head%}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/calendar-icon.css') }}">
+{%endblock%}
+{% block content %} 
+{% include "components/joke_of_the_day.html"%}
+{% endblock %}

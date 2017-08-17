@@ -1,19 +1,16 @@
 <!-- extend base layout -->
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='css/reaction.css') }}"> {% endblock %}
+{% block content %}
 <hr> {%for joke in jokes%}
 <div class="col-md-12 col-sm-12">
   <div class="card card-nav-tabs joke">
     <div class="content">
       <div class="tab-content">
-        <div class="tab-pane active" id="profile">
-          <p>
-            {%for line in joke.html_joke()%} {{line}}
-            <br/> {%endfor%}
-          </p>
-          <button class="btn btn-success joke-like"><i class="fa fa-thumbs-o-up"></i></button>
-          <button class="btn btn-danger joke-dislike"><i class="fa fa-thumbs-o-down"></i></button>
-          <span class="sharing-area"><button class="btn btn-facebook facebook-share"><i class="fa fa-facebook"></i></button></span>
-          <button class="btn btn-info play-voice-api"><i class="fa fa-volume-up"></i></button>
+        <div class="tab-pane active">
+         {% include "components/joke.html" %}
+          <!-- <span class="sharing-area"><button class="btn btn-facebook facebook-share"><i class="fa fa-facebook"></i></button></span>
+          <button class="btn btn-info play-voice-api"><i class="fa fa-volume-up"></i></button> -->
         </div>
       </div>
     </div>
@@ -25,7 +22,7 @@
 {% endblock %} 
 {%block scripts%}
 <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
-<!-- <script src="{{ url_for('static', filename='js/voice-api.js') }}" type="text/javascript"></script> -->
+<script src="{{ url_for('static', filename='js/controllers/add_joke_reaction.js') }}"></script>
 <script>
   $(".play-voice-api").click(function () {
     responsiveVoice.speak($(this).prev('p').text(), "Slovak Female");

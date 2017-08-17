@@ -1,8 +1,10 @@
 """wiew for showing all categories with their jokes """
-from flask import render_template, redirect, Blueprint
+from flask import Blueprint, redirect, render_template
 from flask_paginate import Pagination
+
 from app.models import Category
-from config import PER_PAGE, PAGINATION_FRAMEWORK
+from config import PAGINATION_FRAMEWORK, PER_PAGE
+
 CATEGORIES_MOD = Blueprint('categories', __name__)
 @CATEGORIES_MOD.route('/')
 def index():
@@ -14,6 +16,7 @@ def index():
 @CATEGORIES_MOD.route('/<name>/', defaults={'page': 1})
 @CATEGORIES_MOD.route('/<name>/page/<page>')
 @CATEGORIES_MOD.route('/<name>/page/<page>/')
+
 def category(name, page=1):
     """specific category page with all its jokes"""
     current_category = Category.query.filter_by(name=name).first()

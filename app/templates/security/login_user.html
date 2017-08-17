@@ -1,0 +1,57 @@
+{% extends "auth.html" %} 
+{% block content%}
+{% import "bootstrap/wtf.html" as wtf %}
+<form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+  {{ login_user_form.hidden_tag() }}
+  <div class="header header-primary text-center">
+                                    <h4>{{ _('Login') }}</h4>
+                                    <div class="social-line">
+                                        <a href="#pablo" class="btn btn-simple btn-just-icon">
+											<i class="fa fa-facebook-square"></i>
+										</a>
+                                        <a href="#pablo" class="btn btn-simple btn-just-icon">
+											<i class="fa fa-twitter"></i>
+										</a>
+                                        <a href="#pablo" class="btn btn-simple btn-just-icon">
+											<i class="fa fa-google-plus"></i>
+										</a>
+                                    </div>
+                                </div>
+                                   <p class="text-divider">Or Be Classical</p>
+                                <div class="content">
+
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+											<i class="material-icons">email</i>
+										</span>
+                                         {{ wtf.form_field(login_user_form.email) }}
+                                    </div>
+
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+											<i class="material-icons">lock_outline</i>
+										</span>
+                                         {{ wtf.form_field(login_user_form.password) }}
+                                         <a href="{{url_for_security('forgot_password')}}">{{_("Forgot password?")}}</a>
+                                    </div>
+
+                                    <div class="input-group">
+                                         {{ wtf.form_field(login_user_form.remember) }}
+                                    </div>
+
+
+                                    <!-- If you want to add a checkbox to this form, uncomment this code
+
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" name="optionsCheckboxes" checked>
+											Subscribe to newsletter
+										</label>
+									</div> -->
+                                </div>
+                                <div class="footer text-center">
+                                     {{ wtf.form_field(login_user_form.submit, button_map={"submit":"primary"}) }}
+                                </div>
+                                  </form>
+</form>
+{%endblock%}
