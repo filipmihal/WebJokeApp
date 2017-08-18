@@ -32,3 +32,6 @@ ghostdriver.log
 env
 *.pyc
 build
+
+#for testing
+deleteusers.py

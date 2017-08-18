@@ -18,9 +18,10 @@ class ReactionsType(enum.Enum):
 
 class JokeReaction(DB.Model):
     """jokes reactions model"""
-    __tablename__ = 'joke_reaction'
+    __tablename__ = 'joke_reaction_user'
     id = DB.Column(DB.Integer, primary_key=True)
     joke_id = DB.Column(DB.Integer, DB.ForeignKey('joke.id'))
+    user_id = DB.Column(DB.Integer, DB.ForeignKey('user.id'), default=0)
     reaction_type = DB.Column(Enum(ReactionsType))
     created_at = DB.Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
 
@@ -42,7 +43,7 @@ class Joke(DB.Model):
     joke_length = DB.Column(DB.Integer)
     rank = DB.Column(DB.Float, index=True)
     category_id = DB.Column(DB.Integer, DB.ForeignKey('category.id'))
-    reactions = DB.relationship('JokeReaction', backref='joke_reaction', lazy='dynamic')
+    reactions = DB.relationship('JokeReaction', backref='joke', lazy='dynamic')
 
     def __repr__(self):
         """info about joke"""
@@ -71,23 +72,31 @@ class Joke(DB.Model):
         reactions_data = sorted(reactions_data, key=itemgetter(1), reverse=True)
         return reactions_data
 
-    def add_reaction(self, reaction_type):
+    def add_reaction(self, reaction_type, user_id = 0):
         """method called after a user made reaction"""
-        new_reaction = JokeReaction(joke_id=self.id, reaction_type=reaction_type)
+        if user_id != 0:
+            reaction = self.has_reacted(user_id)
+            if reaction:
+                DB.session.delete(reaction)
+        new_reaction = JokeReaction(joke_id=self.id, reaction_type=reaction_type, user_id = user_id)
         DB.session.add(new_reaction)
         DB.session.commit()
 
+    def has_reacted(self, user_id):
+            return self.reactions.filter(JokeReaction.user_id == user_id).first()
 # Define models
 roles_users = DB.Table('roles_users',
         DB.Column('user_id', DB.Integer(), DB.ForeignKey('user.id')),
         DB.Column('role_id', DB.Integer(), DB.ForeignKey('role.id')))
 
 class Role(DB.Model, RoleMixin):
+    """DB model Users Role"""
     id = DB.Column(DB.Integer(), primary_key=True)
     name = DB.Column(DB.String(80), unique=True)
     description = DB.Column(DB.String(255))
 
 class User(DB.Model, UserMixin):
+    """DB model User"""
     id = DB.Column(DB.Integer, primary_key=True)
     email = DB.Column(DB.String(255), unique=True)
     password = DB.Column(DB.String(255))
@@ -95,4 +104,8 @@ class User(DB.Model, UserMixin):
     confirmed_at = DB.Column(DB.DateTime())
     roles = DB.relationship('Role', secondary=roles_users,
                             backref=DB.backref('users', lazy='dynamic'))
+    reactions = DB.relationship('JokeReaction', backref='user', lazy='dynamic')
+
+    def get_reactions(self, reaction_type):
+        return  self.reactions.filter(JokeReaction.reaction_type == reaction_type).all()
 

@@ -69,3 +69,5 @@ SOCIAL_GOOGLE = {
     'consumer_secret': os.environ.get("GGL_SECRET")
 }
 
+SECURITY_BABEL_DEFAULT_LOCALE = 'sk'
+
