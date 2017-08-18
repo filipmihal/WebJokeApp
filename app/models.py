@@ -18,7 +18,7 @@ class ReactionsType(enum.Enum):
 
 class JokeReaction(DB.Model):
     """jokes reactions model"""
-    __tablename__ = 'joke_reaction'
+    __tablename__ = 'joke_reaction_user'
     id = DB.Column(DB.Integer, primary_key=True)
     joke_id = DB.Column(DB.Integer, DB.ForeignKey('joke.id'))
     user_id = DB.Column(DB.Integer, DB.ForeignKey('user.id'), default=0)
@@ -43,7 +43,7 @@ class Joke(DB.Model):
     joke_length = DB.Column(DB.Integer)
     rank = DB.Column(DB.Float, index=True)
     category_id = DB.Column(DB.Integer, DB.ForeignKey('category.id'))
-    reactions = DB.relationship('JokeReaction', backref='joke_reaction', lazy='dynamic')
+    reactions = DB.relationship('JokeReaction', backref='joke', lazy='dynamic')
 
     def __repr__(self):
         """info about joke"""
@@ -104,6 +104,8 @@ class User(DB.Model, UserMixin):
     confirmed_at = DB.Column(DB.DateTime())
     roles = DB.relationship('Role', secondary=roles_users,
                             backref=DB.backref('users', lazy='dynamic'))
-    jokes = DB.relationship('Joke', secondary="joke_reaction",
-        backref=DB.backref('users', lazy='dynamic'))
+    reactions = DB.relationship('JokeReaction', backref='user', lazy='dynamic')
+
+    def get_reactions(self, reaction_type):
+        return  self.reactions.filter(JokeReaction.reaction_type == reaction_type).all()
 

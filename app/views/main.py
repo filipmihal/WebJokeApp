@@ -2,9 +2,11 @@
 import time
 from flask_security import login_required
 from flask import render_template
+from flask_login import current_user
 
 from app import APP
 from app.helpers import joke_of_the_day
+from app.models import ReactionsType
 
 
 @APP.route('/')
@@ -24,5 +26,7 @@ def index():
 @login_required
 def profile():
     """profile page"""
+    funny_reactions = current_user.get_reactions(ReactionsType.funny)
     return render_template('main/profile.html',
-                           head_name="Vitajte!")
+                           head_name="Vitajte!",
+                           funny_reactions = funny_reactions)
