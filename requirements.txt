@@ -61,7 +61,7 @@ sqlparse==0.2.3
 Tempita==0.5.2
 uritemplate==3.0.0
 urllib3==1.18.1
-waitress==1.0.2
+waitress==1.4.0
 Werkzeug==0.12.2
 wrapt==1.10.10
 WTForms==2.1
